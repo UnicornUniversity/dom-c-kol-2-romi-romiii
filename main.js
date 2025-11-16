@@ -1,35 +1,72 @@
-//TODO add imports if needed
-//import { exMain } from "./exclude/exampleAss2.js"
-//TODO add/change doc as needed
-/**
- * TODO - Write functional code for this application. You can call any other function, but usage of ".toString(numberSystem)" and "Number.parseInt(number, numberSystem)" is forbidden (only permitted when used on individual digits).
- * The main function which calls the application. 
- * TODO - Please, add specific description here for the application purpose.
- * @param {string} inputNumber number that is being converted
- * @param {number} inputNumberSystem numerical system that the inputNumber is being converted from
- * @param {number} outputNumberSystem numerical system that the inputNumber is being converted into
- * @returns {string} containing number converted to output system
- */
-export function main(inputNumber, inputNumberSystem, outputNumberSystem) {
-  //TODO code
-  //let dtoOut = exMain(inputNumber, inputNumberSystem, outputNumberSystem);
-  return dtoOut;
+// Program na prevod čísel z dvojkovej do desiatkovej sústavy
+// Štruktúra: Inicializácia → Validácia → Výpočet → Výsledok 
+
+
+// Funkcia na prevod binárneho reťazca na desiatkové číslo
+
+function convertBinaryToDecimal(binarnyRetazec) {
+
+  // 1. INICIALIZÁCIA
+  let hodnota = 0;
+  let valid = true;
+
+  // 2. VALIDÁCIA VSTUPU
+  let i = 0;
+  while (i < binarnyRetazec.length) {
+    let c = binarnyRetazec[i];
+
+    if (c !== '0' && c !== '1') {
+      valid = false;
+      break;
+    }
+
+    i = i + 1;
+  }
+
+  // 2.2. VYHODNOTENIE VALIDITY
+  if (valid === false) {
+    return NaN;
+  }
+
+  // 3. VÝPOČET DESIATKOVEJ HODNOTY
+  hodnota = 0;
+  i = 0;
+  while (i < binarnyRetazec.length) {
+    let c = binarnyRetazec[i];
+    let cifra = c - '0';
+    hodnota = hodnota * 2 + cifra;
+    i = i + 1;
+  }
+
+  // 4. VÝSLEDOK
+  return hodnota;
 }
 
-/**
- * TODO - Change this to contain all input number systems that your application can convert from.
- * Function which returns which number systems are permitted on input.
- * @returns {Array} array of numbers refering to permitted input systems
- */
+
+
+// Funkcia
+
+export function main(vstupnyRetazec, vstupnaSustava, vystupnaSustava) {
+
+  // povolený prevod: z dvojkovej do desiatkovej
+  if (vstupnaSustava !== 2 || vystupnaSustava !== 10) {
+    return NaN;
+  }
+
+  const vysledok = convertBinaryToDecimal(vstupnyRetazec);
+
+  // testy očakávajú textovú hodnotu
+  return String(vysledok);
+}
+
+
+
+// Funkcie potrebné pre testy (povolené sústavy)
+
 export function permittedInputSystems() {
-	return [10, 2];
+  return [2];
 }
 
-/**
- * TODO - Change this to contain all output number systems that your application can convert to.
- * Function which returns which number systems are permitted on output.
- * @returns {Array} array of numbers refering to permitted output systems
- */
 export function permittedOutputSystems() {
-	return [10, 2];
+  return [10];
 }
